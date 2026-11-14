@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from 'react';
+
+import React, { useMemo, useState } from "react";
 import {
   LayoutDashboard,
   Smartphone,
@@ -30,13 +31,18 @@ import {
   Sparkles,
   CircleCheck,
   Bell,
-} from 'lucide-react';
+} from "lucide-react";
 
 // ==========================================
 // HOKIBLAST CONFIGURATION
 // ==========================================
 
-type Page = 'dashboard' | 'whatsapp' | 'withdraw' | 'history' | 'metaone';
+type Page =
+  | "dashboard"
+  | "whatsapp"
+  | "withdraw"
+  | "history"
+  | "metaone";
 
 type Commission = {
   id: number;
@@ -67,19 +73,19 @@ const MIN_WITHDRAW = 50000;
 const META_PRICE = 250000;
 
 const money = (amount: number) =>
-  new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
+  new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
     maximumFractionDigits: 0,
   }).format(amount);
 
 const dateNow = () =>
-  new Date().toLocaleString('id-ID', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
+  new Date().toLocaleString("id-ID", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
   });
 
 const initialCommissions: Commission[] = Array.from(
@@ -87,12 +93,12 @@ const initialCommissions: Commission[] = Array.from(
   (_, i) => ({
     id: i + 1,
     amount: RATE,
-    phone: '08••••••' + String(1000 + i).slice(-4),
-    date: new Date(Date.now() - i * 60000).toLocaleString('id-ID', {
-      day: '2-digit',
-      month: 'short',
-      hour: '2-digit',
-      minute: '2-digit',
+    phone: "08••••••" + String(1000 + i).slice(-4),
+    date: new Date(Date.now() - i * 60000).toLocaleString("id-ID", {
+      day: "2-digit",
+      month: "short",
+      hour: "2-digit",
+      minute: "2-digit",
     }),
   })
 );
@@ -100,23 +106,23 @@ const initialCommissions: Commission[] = Array.from(
 const initialDevices: Device[] = [
   {
     id: 1,
-    phone: '08••••••1234',
-    name: 'WhatsApp Personal',
-    date: '13 Nov 2026',
-    status: 'Aktif Disewa',
+    phone: "08••••••1234",
+    name: "WhatsApp Personal",
+    date: "13 Nov 2026",
+    status: "Aktif Disewa",
   },
 ];
 
 const navItems = [
-  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { id: 'whatsapp', label: 'Hubungkan WA', icon: Smartphone },
-  { id: 'withdraw', label: 'Tarik Saldo', icon: Wallet },
-  { id: 'history', label: 'Riwayat & Referral', icon: History },
-  { id: 'metaone', label: 'Beli Meta One', icon: ShoppingBag },
+  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { id: "whatsapp", label: "Hubungkan WA", icon: Smartphone },
+  { id: "withdraw", label: "Tarik Saldo", icon: Wallet },
+  { id: "history", label: "Riwayat & Referral", icon: History },
+  { id: "metaone", label: "Beli Meta One", icon: ShoppingBag },
 ] as const;
 
 const chartValues = [25, 35, 30, 55, 45, 75, 100];
-const chartLabels = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
+const chartLabels = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
 
 // ==========================================
 // REUSABLE COMPONENTS
@@ -138,26 +144,27 @@ function Logo() {
 function Button({
   children,
   onClick,
-  variant = 'primary',
-  className = '',
+  variant = "primary",
+  className = "",
   disabled = false,
-  type = 'button',
+  type = "button",
 }: {
   children: React.ReactNode;
   onClick?: () => void;
-  variant?: 'primary' | 'secondary' | 'gold' | 'danger';
+  variant?: "primary" | "secondary" | "gold" | "danger";
   className?: string;
   disabled?: boolean;
-  type?: 'button' | 'submit';
+  type?: "button" | "submit";
 }) {
   const styles = {
     primary:
-      'bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold shadow-lg shadow-emerald-500/10',
+      "bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold shadow-lg shadow-emerald-500/10",
     secondary:
-      'bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700',
-    gold: 'bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold shadow-lg shadow-amber-500/10',
+      "bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700",
+    gold:
+      "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold shadow-lg shadow-amber-500/10",
     danger:
-      'bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20',
+      "bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20",
   };
 
   return (
@@ -177,7 +184,7 @@ function Input({
   value,
   onChange,
   placeholder,
-  type = 'text',
+  type = "text",
 }: {
   label: string;
   value: string;
@@ -187,7 +194,9 @@ function Input({
 }) {
   return (
     <div className="space-y-2">
-      <label className="text-sm font-medium text-slate-300">{label}</label>
+      <label className="text-sm font-medium text-slate-300">
+        {label}
+      </label>
       <input
         type={type}
         value={value}
@@ -204,19 +213,19 @@ function StatCard({
   value,
   description,
   icon: Icon,
-  color = 'emerald',
+  color = "emerald",
 }: {
   title: string;
   value: string;
   description: string;
   icon: React.ElementType;
-  color?: 'emerald' | 'amber' | 'blue' | 'purple';
+  color?: "emerald" | "amber" | "blue" | "purple";
 }) {
   const colors = {
-    emerald: 'bg-emerald-500/10 text-emerald-400',
-    amber: 'bg-amber-500/10 text-amber-400',
-    blue: 'bg-blue-500/10 text-blue-400',
-    purple: 'bg-purple-500/10 text-purple-400',
+    emerald: "bg-emerald-500/10 text-emerald-400",
+    amber: "bg-amber-500/10 text-amber-400",
+    blue: "bg-blue-500/10 text-blue-400",
+    purple: "bg-purple-500/10 text-purple-400",
   };
 
   return (
@@ -307,15 +316,17 @@ function Landing({
               </div>
 
               <h1 className="max-w-2xl text-4xl font-black leading-tight tracking-tight md:text-6xl">
-                Sewakan Akun WhatsApp Anda &{' '}
-                <span className="text-emerald-400">Dapatkan Komisi</span> Rp
-                1.500 / Pesan Terkirim
+                Sewakan Akun WhatsApp Anda &{" "}
+                <span className="text-emerald-400">
+                  Dapatkan Komisi
+                </span>{" "}
+                Rp 1.500 / Pesan Terkirim
               </h1>
 
               <p className="mt-6 max-w-xl leading-8 text-slate-400">
                 Hubungkan akun WhatsApp Anda melalui proses persetujuan,
-                dapatkan komisi dari aktivitas yang memenuhi ketentuan, dan
-                pantau penghasilan Anda dalam satu dashboard.
+                dapatkan komisi dari aktivitas yang memenuhi ketentuan,
+                dan pantau penghasilan Anda dalam satu dashboard.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -343,7 +354,9 @@ function Landing({
               <div className="rounded-3xl border border-slate-700 bg-slate-900 p-6 shadow-2xl shadow-emerald-950/30">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-slate-400">Total Penghasilan</p>
+                    <p className="text-sm text-slate-400">
+                      Total Penghasilan
+                    </p>
                     <h2 className="mt-2 text-4xl font-black text-white">
                       Rp150.000
                     </h2>
@@ -355,8 +368,12 @@ function Landing({
 
                 <div className="mt-6 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-4">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-slate-400">Komisi per pesan</span>
-                    <span className="font-bold text-emerald-400">+Rp1.500</span>
+                    <span className="text-slate-400">
+                      Komisi per pesan
+                    </span>
+                    <span className="font-bold text-emerald-400">
+                      +Rp1.500
+                    </span>
                   </div>
                   <div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-800">
                     <div className="h-full w-3/4 rounded-full bg-emerald-500" />
@@ -370,12 +387,16 @@ function Landing({
                   <div className="rounded-xl bg-slate-800 p-4">
                     <MessageCircle className="mb-2 text-emerald-400" />
                     <p className="text-xl font-bold">100</p>
-                    <p className="text-xs text-slate-500">Pesan terkirim</p>
+                    <p className="text-xs text-slate-500">
+                      Pesan terkirim
+                    </p>
                   </div>
                   <div className="rounded-xl bg-slate-800 p-4">
                     <Smartphone className="mb-2 text-amber-400" />
                     <p className="text-xl font-bold">01</p>
-                    <p className="text-xs text-slate-500">Akun terhubung</p>
+                    <p className="text-xs text-slate-500">
+                      Akun terhubung
+                    </p>
                   </div>
                 </div>
               </div>
@@ -386,8 +407,12 @@ function Landing({
                     <TrendingUp size={20} />
                   </div>
                   <div>
-                    <p className="text-xs text-slate-400">Komisi diterima</p>
-                    <p className="font-bold text-emerald-400">+ Rp1.500</p>
+                    <p className="text-xs text-slate-400">
+                      Komisi diterima
+                    </p>
+                    <p className="font-bold text-emerald-400">
+                      + Rp1.500
+                    </p>
                   </div>
                 </div>
               </div>
@@ -433,11 +458,15 @@ function Landing({
                 </div>
 
                 <p className="mt-2 text-xs text-slate-500">
-                  2 nomor dalam satu paket. Ketersediaan perlu dikonfirmasi saat
-                  checkout.
+                  2 nomor dalam satu paket. Ketersediaan perlu dikonfirmasi
+                  saat checkout.
                 </p>
 
-                <Button variant="gold" onClick={onBuy} className="mt-7 px-7">
+                <Button
+                  variant="gold"
+                  onClick={onBuy}
+                  className="mt-7 px-7"
+                >
                   Beli Sekarang <ArrowUpRight size={17} />
                 </Button>
               </div>
@@ -465,24 +494,29 @@ function Landing({
             {[
               {
                 icon: ShieldCheck,
-                title: 'Transparan',
-                desc: 'Pantau setiap komisi dan transaksi.',
+                title: "Transparan",
+                desc: "Pantau setiap komisi dan transaksi.",
               },
               {
                 icon: Zap,
-                title: 'Praktis',
-                desc: 'Kelola perangkat melalui satu dashboard.',
+                title: "Praktis",
+                desc: "Kelola perangkat melalui satu dashboard.",
               },
               {
                 icon: Wallet,
-                title: 'Fleksibel',
-                desc: 'Ajukan penarikan sesuai ketentuan.',
+                title: "Fleksibel",
+                desc: "Ajukan penarikan sesuai ketentuan.",
               },
             ].map((item) => (
               <div key={item.title}>
-                <item.icon className="mx-auto text-emerald-400" size={30} />
+                <item.icon
+                  className="mx-auto text-emerald-400"
+                  size={30}
+                />
                 <h3 className="mt-4 font-bold">{item.title}</h3>
-                <p className="mt-2 text-sm text-slate-500">{item.desc}</p>
+                <p className="mt-2 text-sm text-slate-500">
+                  {item.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -505,18 +539,18 @@ function AuthPage({
   setMode,
   onSuccess,
 }: {
-  mode: 'login' | 'register';
-  setMode: (v: 'login' | 'register') => void;
+  mode: "login" | "register";
+  setMode: (v: "login" | "register") => void;
   onSuccess: (name: string) => void;
 }) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSuccess(name.trim() || email.split('@')[0] || 'Pengguna');
+    onSuccess(name.trim() || email.split("@")[0] || "Pengguna");
   };
 
   return (
@@ -528,17 +562,17 @@ function AuthPage({
 
         <div className="rounded-3xl border border-slate-800 bg-slate-900 p-8 shadow-2xl">
           <h1 className="text-2xl font-black">
-            {mode === 'login' ? 'Selamat Datang!' : 'Buat Akun Baru'}
+            {mode === "login" ? "Selamat Datang!" : "Buat Akun Baru"}
           </h1>
 
           <p className="mt-2 text-sm text-slate-400">
-            {mode === 'login'
-              ? 'Masuk ke dashboard HokiBlast Anda.'
-              : 'Daftar sekarang dan mulai gunakan HokiBlast.'}
+            {mode === "login"
+              ? "Masuk ke dashboard HokiBlast Anda."
+              : "Daftar sekarang dan mulai gunakan HokiBlast."}
           </p>
 
           <form onSubmit={submit} className="mt-7 space-y-5">
-            {mode === 'register' && (
+            {mode === "register" && (
               <Input
                 label="Nama Lengkap"
                 value={name}
@@ -564,7 +598,7 @@ function AuthPage({
                 <input
                   required
                   minLength={6}
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Minimal 6 karakter"
@@ -576,24 +610,30 @@ function AuthPage({
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-4 top-3 text-slate-500"
                 >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  {showPassword ? (
+                    <EyeOff size={18} />
+                  ) : (
+                    <Eye size={18} />
+                  )}
                 </button>
               </div>
             </div>
 
             <Button type="submit" className="w-full py-4">
-              {mode === 'login' ? 'Masuk ke Dashboard' : 'Buat Akun'}
+              {mode === "login" ? "Masuk ke Dashboard" : "Buat Akun"}
               <ChevronRight size={17} />
             </Button>
           </form>
 
           <p className="mt-6 text-center text-sm text-slate-500">
-            {mode === 'login' ? 'Belum punya akun?' : 'Sudah punya akun?'}{' '}
+            {mode === "login" ? "Belum punya akun?" : "Sudah punya akun?"}{" "}
             <button
-              onClick={() => setMode(mode === 'login' ? 'register' : 'login')}
+              onClick={() =>
+                setMode(mode === "login" ? "register" : "login")
+              }
               className="font-bold text-emerald-400 hover:text-emerald-300"
             >
-              {mode === 'login' ? 'Daftar sekarang' : 'Masuk'}
+              {mode === "login" ? "Daftar sekarang" : "Masuk"}
             </button>
           </p>
         </div>
@@ -634,7 +674,7 @@ function Sidebar({
 
       <aside
         className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-slate-800 bg-slate-900 transition-transform lg:static lg:translate-x-0 ${
-          mobileOpen ? 'translate-x-0' : '-translate-x-full'
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex h-20 items-center justify-between border-b border-slate-800 px-6">
@@ -665,14 +705,14 @@ function Sidebar({
                   }}
                   className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition ${
                     active
-                      ? 'bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/10'
-                      : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                      ? "bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/10"
+                      : "text-slate-400 hover:bg-slate-800 hover:text-white"
                   }`}
                 >
                   <item.icon size={19} />
                   {item.label}
 
-                  {item.id === 'metaone' && (
+                  {item.id === "metaone" && (
                     <span className="ml-auto rounded-md bg-amber-400 px-2 py-0.5 text-[9px] font-black text-slate-950">
                       NEW
                     </span>
@@ -687,7 +727,9 @@ function Sidebar({
           <div className="mb-4 rounded-2xl border border-amber-400/20 bg-amber-400/5 p-4">
             <div className="flex items-center gap-2 text-amber-400">
               <Crown size={17} />
-              <span className="text-xs font-bold">Meta One Special</span>
+              <span className="text-xs font-bold">
+                Meta One Special
+              </span>
             </div>
 
             <p className="mt-2 text-xs leading-5 text-slate-400">
@@ -696,7 +738,7 @@ function Sidebar({
 
             <button
               onClick={() => {
-                setPage('metaone');
+                setPage("metaone");
                 setMobileOpen(false);
               }}
               className="mt-3 text-xs font-bold text-amber-400"
@@ -726,7 +768,9 @@ function Sidebar({
 // ==========================================
 
 function RevenueChart({ total }: { total: number }) {
-  const values = chartValues.map((v) => (v / 100) * Math.max(total, 1000));
+  const values = chartValues.map(
+    (v) => (v / 100) * Math.max(total, 1000)
+  );
 
   const max = Math.max(...values, 1);
 
@@ -736,7 +780,7 @@ function RevenueChart({ total }: { total: number }) {
       const y = 100 - (v / max) * 85;
       return `${x},${y}`;
     })
-    .join(' ');
+    .join(" ");
 
   const area = `0,100 ${points} 100,100`;
 
@@ -744,8 +788,12 @@ function RevenueChart({ total }: { total: number }) {
     <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h3 className="font-bold text-white">Grafik Pendapatan</h3>
-          <p className="mt-1 text-xs text-slate-500">7 hari terakhir</p>
+          <h3 className="font-bold text-white">
+            Grafik Pendapatan
+          </h3>
+          <p className="mt-1 text-xs text-slate-500">
+            7 hari terakhir
+          </p>
         </div>
 
         <span className="rounded-lg bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-400">
@@ -755,7 +803,10 @@ function RevenueChart({ total }: { total: number }) {
       </div>
 
       <div className="mt-8">
-        <svg viewBox="0 0 100 110" className="h-52 w-full overflow-visible">
+        <svg
+          viewBox="0 0 100 110"
+          className="h-52 w-full overflow-visible"
+        >
           {[20, 40, 60, 80].map((y) => (
             <line
               key={y}
@@ -770,9 +821,23 @@ function RevenueChart({ total }: { total: number }) {
           ))}
 
           <defs>
-            <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#10b981" stopOpacity="0.35" />
-              <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+            <linearGradient
+              id="chartGradient"
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="1"
+            >
+              <stop
+                offset="0%"
+                stopColor="#10b981"
+                stopOpacity="0.35"
+              />
+              <stop
+                offset="100%"
+                stopColor="#10b981"
+                stopOpacity="0"
+              />
             </linearGradient>
           </defs>
 
@@ -829,7 +894,7 @@ function DashboardHome({
   const [showBalance, setShowBalance] = useState(true);
 
   const activeDevices = devices.filter(
-    (d) => d.status === 'Aktif Disewa'
+    (d) => d.status === "Aktif Disewa"
   ).length;
 
   return (
@@ -839,18 +904,24 @@ function DashboardHome({
 
         <div className="relative flex flex-wrap items-center justify-between gap-5">
           <div>
-            <p className="text-sm text-emerald-300">Total Penghasilan Anda</p>
+            <p className="text-sm text-emerald-300">
+              Total Penghasilan Anda
+            </p>
 
             <div className="mt-3 flex items-center gap-3">
               <h2 className="text-3xl font-black text-white md:text-4xl">
-                {showBalance ? money(balance) : '••••••••'}
+                {showBalance ? money(balance) : "••••••••"}
               </h2>
 
               <button
                 onClick={() => setShowBalance(!showBalance)}
                 className="text-slate-400 hover:text-white"
               >
-                {showBalance ? <Eye size={19} /> : <EyeOff size={19} />}
+                {showBalance ? (
+                  <Eye size={19} />
+                ) : (
+                  <EyeOff size={19} />
+                )}
               </button>
             </div>
 
@@ -859,7 +930,10 @@ function DashboardHome({
             </p>
           </div>
 
-          <Button onClick={() => onPage('withdraw')} className="px-6">
+          <Button
+            onClick={() => onPage("withdraw")}
+            className="px-6"
+          >
             <Wallet size={17} /> Tarik Saldo
           </Button>
         </div>
@@ -908,7 +982,9 @@ function DashboardHome({
           <div>
             <div className="flex items-center gap-2 text-emerald-400">
               <Zap size={20} />
-              <span className="text-sm font-bold">Simulasi Komisi</span>
+              <span className="text-sm font-bold">
+                Simulasi Komisi
+              </span>
             </div>
 
             <h3 className="mt-5 text-xl font-bold text-white">
@@ -916,12 +992,14 @@ function DashboardHome({
             </h3>
 
             <p className="mt-2 text-sm leading-6 text-slate-400">
-              Demonstrasikan satu aktivitas pesan yang memenuhi ketentuan untuk
-              menambahkan komisi ke saldo.
+              Demonstrasikan satu aktivitas pesan yang memenuhi
+              ketentuan untuk menambahkan komisi ke saldo.
             </p>
 
             <div className="mt-5 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
-              <p className="text-xs text-slate-400">Komisi simulasi</p>
+              <p className="text-xs text-slate-400">
+                Komisi simulasi
+              </p>
               <p className="mt-1 text-2xl font-black text-emerald-400">
                 +Rp1.500
               </p>
@@ -937,14 +1015,16 @@ function DashboardHome({
       <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
         <div className="mb-5 flex items-center justify-between">
           <div>
-            <h3 className="font-bold text-white">Aktivitas Terbaru</h3>
+            <h3 className="font-bold text-white">
+              Aktivitas Terbaru
+            </h3>
             <p className="mt-1 text-xs text-slate-500">
               Riwayat komisi terbaru Anda
             </p>
           </div>
 
           <button
-            onClick={() => onPage('history')}
+            onClick={() => onPage("history")}
             className="text-xs font-bold text-emerald-400"
           >
             Lihat Semua →
@@ -964,7 +1044,9 @@ function DashboardHome({
                 <p className="text-sm font-semibold text-white">
                   Komisi Pesan #{item.id}
                 </p>
-                <p className="mt-1 text-xs text-slate-500">{item.date}</p>
+                <p className="mt-1 text-xs text-slate-500">
+                  {item.date}
+                </p>
               </div>
             </div>
 
@@ -990,9 +1072,16 @@ function FakeQR() {
         const y = Math.floor(i / 15);
 
         const inFinder = (ox: number, oy: number) =>
-          x >= ox && x < ox + 5 && y >= oy && y < oy + 5;
+          x >= ox &&
+          x < ox + 5 &&
+          y >= oy &&
+          y < oy + 5;
 
-        if (inFinder(0, 0) || inFinder(10, 0) || inFinder(0, 10)) {
+        if (
+          inFinder(0, 0) ||
+          inFinder(10, 0) ||
+          inFinder(0, 10)
+        ) {
           const ox = x < 5 ? 0 : x >= 10 && y < 5 ? 10 : 0;
           const oy = y < 5 ? 0 : 10;
 
@@ -1018,7 +1107,9 @@ function FakeQR() {
       {cells.map((filled, i) => (
         <div
           key={i}
-          className={`rounded-[1px] ${filled ? 'bg-slate-950' : 'bg-white'}`}
+          className={`rounded-[1px] ${
+            filled ? "bg-slate-950" : "bg-white"
+          }`}
         />
       ))}
     </div>
@@ -1037,7 +1128,8 @@ function WhatsAppPage({
   onAddDevice: (phone: string) => void;
 }) {
   const [qrOpen, setQrOpen] = useState(false);
-  const [simulatedPhone, setSimulatedPhone] = useState('081234567890');
+  const [simulatedPhone, setSimulatedPhone] =
+    useState("081234567890");
   const [success, setSuccess] = useState(false);
 
   const scanSuccess = () => {
@@ -1051,7 +1143,9 @@ function WhatsAppPage({
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-black text-white">Hubungkan WhatsApp</h2>
+          <h2 className="text-xl font-black text-white">
+            Hubungkan WhatsApp
+          </h2>
           <p className="mt-2 text-sm text-slate-400">
             Kelola perangkat yang terhubung dengan persetujuan pemilik.
           </p>
@@ -1079,7 +1173,10 @@ function WhatsAppPage({
 
         {devices.length === 0 ? (
           <div className="py-14 text-center">
-            <Smartphone className="mx-auto text-slate-600" size={42} />
+            <Smartphone
+              className="mx-auto text-slate-600"
+              size={42}
+            />
             <p className="mt-4 font-semibold text-slate-300">
               Belum ada perangkat
             </p>
@@ -1101,7 +1198,10 @@ function WhatsAppPage({
 
               <tbody>
                 {devices.map((device) => (
-                  <tr key={device.id} className="border-b border-slate-800/70">
+                  <tr
+                    key={device.id}
+                    className="border-b border-slate-800/70"
+                  >
                     <td className="py-5 font-semibold text-white">
                       <div className="flex items-center gap-3">
                         <div className="rounded-xl bg-emerald-500/10 p-2 text-emerald-400">
@@ -1111,9 +1211,13 @@ function WhatsAppPage({
                       </div>
                     </td>
 
-                    <td className="py-5 text-slate-300">{device.phone}</td>
+                    <td className="py-5 text-slate-300">
+                      {device.phone}
+                    </td>
 
-                    <td className="py-5 text-slate-400">{device.date}</td>
+                    <td className="py-5 text-slate-400">
+                      {device.date}
+                    </td>
 
                     <td className="py-5">
                       <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400">
@@ -1138,11 +1242,13 @@ function WhatsAppPage({
               <QrCode size={30} />
             </div>
 
-            <h4 className="font-bold text-white">Simulasi QR Code</h4>
+            <h4 className="font-bold text-white">
+              Simulasi QR Code
+            </h4>
 
             <p className="mt-2 text-xs leading-5 text-slate-400">
-              Visual QR berikut hanya ilustrasi dan tidak dapat digunakan untuk
-              login ke WhatsApp.
+              Visual QR berikut hanya ilustrasi dan tidak dapat
+              digunakan untuk login ke WhatsApp.
             </p>
 
             <div className="my-6">
@@ -1158,7 +1264,9 @@ function WhatsAppPage({
 
             <Button
               className="mt-5 w-full"
-              disabled={simulatedPhone.replace(/\D/g, '').length < 10}
+              disabled={
+                simulatedPhone.replace(/\D/g, "").length < 10
+              }
               onClick={scanSuccess}
             >
               <Check size={18} /> Simulasi Scan Berhasil
@@ -1191,23 +1299,23 @@ function WithdrawPage({
   }) => void;
   withdrawals: Withdrawal[];
 }) {
-  const [category, setCategory] = useState('Bank');
-  const [method, setMethod] = useState('BCA');
-  const [account, setAccount] = useState('');
-  const [amount, setAmount] = useState('');
+  const [category, setCategory] = useState("Bank");
+  const [method, setMethod] = useState("BCA");
+  const [account, setAccount] = useState("");
+  const [amount, setAmount] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const numericAmount = Number(amount);
 
   const error =
-    amount !== '' && numericAmount < MIN_WITHDRAW
-      ? 'Minimal penarikan adalah Rp50.000.'
-      : amount !== '' && numericAmount > balance
-      ? 'Saldo Anda tidak mencukupi.'
-      : '';
+    amount !== "" && numericAmount < MIN_WITHDRAW
+      ? "Minimal penarikan adalah Rp50.000."
+      : amount !== "" && numericAmount > balance
+        ? "Saldo Anda tidak mencukupi."
+        : "";
 
   const valid =
-    amount !== '' &&
+    amount !== "" &&
     Number.isFinite(numericAmount) &&
     numericAmount >= MIN_WITHDRAW &&
     numericAmount <= balance &&
@@ -1225,18 +1333,22 @@ function WithdrawPage({
       amount: numericAmount,
     });
 
-    setAmount('');
-    setAccount('');
+    setAmount("");
+    setAccount("");
     setSubmitted(true);
   };
 
   const methods =
-    category === 'Bank' ? ['BCA', 'BRI', 'Mandiri'] : ['DANA', 'GoPay', 'OVO'];
+    category === "Bank"
+      ? ["BCA", "BRI", "Mandiri"]
+      : ["DANA", "GoPay", "OVO"];
 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-black text-white">Tarik Saldo</h2>
+        <h2 className="text-xl font-black text-white">
+          Tarik Saldo
+        </h2>
         <p className="mt-2 text-sm text-slate-400">
           Cairkan penghasilan Anda melalui bank atau e-wallet.
         </p>
@@ -1257,7 +1369,9 @@ function WithdrawPage({
           onSubmit={handleSubmit}
           className="space-y-5 rounded-2xl border border-slate-800 bg-slate-900 p-6"
         >
-          <h3 className="font-bold text-white">Form Penarikan</h3>
+          <h3 className="font-bold text-white">
+            Form Penarikan
+          </h3>
 
           <div>
             <label className="mb-3 block text-sm font-medium text-slate-300">
@@ -1265,24 +1379,30 @@ function WithdrawPage({
             </label>
 
             <div className="grid grid-cols-2 gap-3">
-              {['Bank', 'E-Wallet'].map((v) => (
+              {["Bank", "E-Wallet"].map((v) => (
                 <button
                   key={v}
                   type="button"
                   onClick={() => {
                     setCategory(v);
-                    setMethod(v === 'Bank' ? 'BCA' : 'DANA');
+                    setMethod(v === "Bank" ? "BCA" : "DANA");
                   }}
                   className={`rounded-xl border p-3 text-sm font-semibold ${
                     category === v
-                      ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400'
-                      : 'border-slate-700 text-slate-400'
+                      ? "border-emerald-500 bg-emerald-500/10 text-emerald-400"
+                      : "border-slate-700 text-slate-400"
                   }`}
                 >
-                  {v === 'Bank' ? (
-                    <Banknote className="mx-auto mb-2" size={20} />
+                  {v === "Bank" ? (
+                    <Banknote
+                      className="mx-auto mb-2"
+                      size={20}
+                    />
                   ) : (
-                    <Wallet className="mx-auto mb-2" size={20} />
+                    <Wallet
+                      className="mx-auto mb-2"
+                      size={20}
+                    />
                   )}
                   {v}
                 </button>
@@ -1307,7 +1427,11 @@ function WithdrawPage({
           </div>
 
           <Input
-            label={category === 'Bank' ? 'Nomor Rekening' : 'Nomor E-Wallet'}
+            label={
+              category === "Bank"
+                ? "Nomor Rekening"
+                : "Nomor E-Wallet"
+            }
             value={account}
             onChange={setAccount}
             placeholder="Masukkan nomor rekening"
@@ -1316,7 +1440,7 @@ function WithdrawPage({
           <Input
             label="Nominal Penarikan (Rp)"
             value={amount}
-            onChange={(v) => setAmount(v.replace(/\D/g, ''))}
+            onChange={(v) => setAmount(v.replace(/\D/g, ""))}
             placeholder="Contoh: 50000"
             type="text"
           />
@@ -1328,20 +1452,24 @@ function WithdrawPage({
             </div>
           )}
 
-          {amount !== '' && !error && numericAmount % 1000 !== 0 && (
-            <div className="text-xs text-amber-400">
-              Nominal harus merupakan kelipatan Rp1.000.
-            </div>
-          )}
+          {amount !== "" &&
+            !error &&
+            numericAmount % 1000 !== 0 && (
+              <div className="text-xs text-amber-400">
+                Nominal harus merupakan kelipatan Rp1.000.
+              </div>
+            )}
 
-          {amount !== '' && !error && numericAmount % 1000 === 0 && (
-            <div className="rounded-xl bg-slate-800 p-3 text-xs text-slate-300">
-              Nominal penarikan:{' '}
-              <span className="font-bold text-white">
-                {money(numericAmount)}
-              </span>
-            </div>
-          )}
+          {amount !== "" &&
+            !error &&
+            numericAmount % 1000 === 0 && (
+              <div className="rounded-xl bg-slate-800 p-3 text-xs text-slate-300">
+                Nominal penarikan:{" "}
+                <span className="font-bold text-white">
+                  {money(numericAmount)}
+                </span>
+              </div>
+            )}
 
           {submitted && (
             <div className="rounded-xl bg-emerald-500/10 p-3 text-xs text-emerald-400">
@@ -1349,7 +1477,11 @@ function WithdrawPage({
             </div>
           )}
 
-          <Button type="submit" className="w-full" disabled={!valid}>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={!valid}
+          >
             <ArrowUpRight size={18} /> Ajukan Penarikan
           </Button>
 
@@ -1360,11 +1492,16 @@ function WithdrawPage({
         </form>
 
         <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-          <h3 className="mb-5 font-bold text-white">Riwayat Withdraw</h3>
+          <h3 className="mb-5 font-bold text-white">
+            Riwayat Withdraw
+          </h3>
 
           {withdrawals.length === 0 ? (
             <div className="py-12 text-center">
-              <History className="mx-auto text-slate-600" size={36} />
+              <History
+                className="mx-auto text-slate-600"
+                size={36}
+              />
               <p className="mt-3 text-sm text-slate-400">
                 Belum ada penarikan.
               </p>
@@ -1378,16 +1515,24 @@ function WithdrawPage({
                 >
                   <div className="flex justify-between gap-3">
                     <div>
-                      <p className="font-bold text-white">{w.method}</p>
-                      <p className="mt-1 text-xs text-slate-500">{w.account}</p>
+                      <p className="font-bold text-white">
+                        {w.method}
+                      </p>
+                      <p className="mt-1 text-xs text-slate-500">
+                        {w.account}
+                      </p>
                     </div>
 
-                    <p className="font-bold text-white">{money(w.amount)}</p>
+                    <p className="font-bold text-white">
+                      {money(w.amount)}
+                    </p>
                   </div>
 
                   <div className="mt-3 flex justify-between text-xs text-slate-500">
                     <span>{w.date}</span>
-                    <span className="text-amber-400">{w.status}</span>
+                    <span className="text-amber-400">
+                      {w.status}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -1412,10 +1557,10 @@ function HistoryPage({
   onCopy: () => void;
   copied: boolean;
 }) {
-  const [filter, setFilter] = useState('Semua');
+  const [filter, setFilter] = useState("Semua");
 
   const displayed = commissions.filter((item) => {
-    if (filter === 'Terbaru') {
+    if (filter === "Terbaru") {
       return item.id >= commissions.length - 9;
     }
     return true;
@@ -1424,7 +1569,9 @@ function HistoryPage({
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-black text-white">Riwayat Komisi</h2>
+        <h2 className="text-xl font-black text-white">
+          Riwayat Komisi
+        </h2>
         <p className="mt-2 text-sm text-slate-400">
           Pantau seluruh pemasukan dari aktivitas yang tercatat.
         </p>
@@ -1441,9 +1588,9 @@ function HistoryPage({
         </h3>
 
         <p className="mt-2 max-w-xl text-sm leading-6 text-slate-400">
-          Bagikan link referral Anda. Komisi referral pada prototype ini
-          merupakan ilustrasi dan belum terhubung dengan sistem atribusi
-          pengguna.
+          Bagikan link referral Anda. Komisi referral pada prototype
+          ini merupakan ilustrasi dan belum terhubung dengan sistem
+          atribusi pengguna.
         </p>
 
         <div className="mt-5 flex flex-wrap items-center gap-3 rounded-xl border border-slate-700 bg-slate-950/70 p-3">
@@ -1453,7 +1600,7 @@ function HistoryPage({
 
           <Button onClick={onCopy} variant="secondary">
             {copied ? <Check size={16} /> : <Copy size={16} />}
-            {copied ? 'Tersalin' : 'Salin Link'}
+            {copied ? "Tersalin" : "Salin Link"}
           </Button>
         </div>
       </div>
@@ -1461,7 +1608,9 @@ function HistoryPage({
       <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
         <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h3 className="font-bold text-white">Riwayat Komisi Masuk</h3>
+            <h3 className="font-bold text-white">
+              Riwayat Komisi Masuk
+            </h3>
             <p className="mt-1 text-xs text-slate-500">
               Total {commissions.length} aktivitas
             </p>
@@ -1491,13 +1640,22 @@ function HistoryPage({
 
             <tbody>
               {displayed.slice(0, 100).map((item) => (
-                <tr key={item.id} className="border-b border-slate-800/60">
-                  <td className="py-4 text-slate-500">#{item.id}</td>
+                <tr
+                  key={item.id}
+                  className="border-b border-slate-800/60"
+                >
+                  <td className="py-4 text-slate-500">
+                    #{item.id}
+                  </td>
                   <td className="py-4 font-semibold text-white">
                     Pesan terkirim
                   </td>
-                  <td className="py-4 text-slate-400">{item.phone}</td>
-                  <td className="py-4 text-slate-500">{item.date}</td>
+                  <td className="py-4 text-slate-400">
+                    {item.phone}
+                  </td>
+                  <td className="py-4 text-slate-500">
+                    {item.date}
+                  </td>
                   <td className="py-4 text-right font-bold text-emerald-400">
                     +{money(item.amount)}
                   </td>
@@ -1519,7 +1677,9 @@ function MetaOnePage({ onBuy }: { onBuy: () => void }) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-black text-white">Meta One Store</h2>
+        <h2 className="text-xl font-black text-white">
+          Meta One Store
+        </h2>
         <p className="mt-2 text-sm text-slate-400">
           Paket nomor spesial HokiBlast.
         </p>
@@ -1555,7 +1715,11 @@ function MetaOnePage({ onBuy }: { onBuy: () => void }) {
               Stok ready (data demo)
             </div>
 
-            <Button variant="gold" onClick={onBuy} className="mt-7 px-8">
+            <Button
+              variant="gold"
+              onClick={onBuy}
+              className="mt-7 px-8"
+            >
               <ShoppingBag size={18} /> Pesan Sekarang
             </Button>
           </div>
@@ -1563,7 +1727,10 @@ function MetaOnePage({ onBuy }: { onBuy: () => void }) {
           <div className="flex justify-center">
             <div className="flex h-64 w-64 items-center justify-center rounded-full border border-amber-400/30 bg-amber-400/5">
               <div className="text-center">
-                <Crown size={70} className="mx-auto text-amber-400" />
+                <Crown
+                  size={70}
+                  className="mx-auto text-amber-400"
+                />
                 <p className="mt-4 text-2xl font-black text-amber-300">
                   META ONE
                 </p>
@@ -1580,18 +1747,18 @@ function MetaOnePage({ onBuy }: { onBuy: () => void }) {
         {[
           {
             icon: Package,
-            title: '2 Nomor',
-            text: 'Dua nomor dalam satu paket.',
+            title: "2 Nomor",
+            text: "Dua nomor dalam satu paket.",
           },
           {
             icon: CreditCard,
-            title: 'Pembayaran',
-            text: 'Simulasi QRIS atau konfirmasi.',
+            title: "Pembayaran",
+            text: "Simulasi QRIS atau konfirmasi.",
           },
           {
             icon: ShieldCheck,
-            title: 'Konfirmasi',
-            text: 'Detail produk perlu diverifikasi.',
+            title: "Konfirmasi",
+            text: "Detail produk perlu diverifikasi.",
           },
         ].map((item) => (
           <div
@@ -1599,8 +1766,12 @@ function MetaOnePage({ onBuy }: { onBuy: () => void }) {
             className="rounded-2xl border border-slate-800 bg-slate-900 p-5"
           >
             <item.icon className="text-amber-400" size={23} />
-            <h4 className="mt-4 font-bold text-white">{item.title}</h4>
-            <p className="mt-2 text-xs text-slate-500">{item.text}</p>
+            <h4 className="mt-4 font-bold text-white">
+              {item.title}
+            </h4>
+            <p className="mt-2 text-xs text-slate-500">
+              {item.text}
+            </p>
           </div>
         ))}
       </div>
@@ -1612,10 +1783,14 @@ function MetaOnePage({ onBuy }: { onBuy: () => void }) {
 // CHECKOUT MODAL
 // ==========================================
 
-function CheckoutModal({ onClose }: { onClose: () => void }) {
-  const [method, setMethod] = useState('QRIS');
+function CheckoutModal({
+  onClose,
+}: {
+  onClose: () => void;
+}) {
+  const [method, setMethod] = useState("QRIS");
   const [paid, setPaid] = useState(false);
-  const [contact, setContact] = useState('');
+  const [contact, setContact] = useState("");
 
   return (
     <Modal title="Checkout Meta One" onClose={onClose}>
@@ -1630,8 +1805,8 @@ function CheckoutModal({ onClose }: { onClose: () => void }) {
           </h3>
 
           <p className="mt-3 text-sm leading-6 text-slate-400">
-            Permintaan checkout demo sudah dicatat. Belum ada pembayaran atau
-            pesanan sungguhan yang dibuat.
+            Permintaan checkout demo sudah dicatat. Belum ada pembayaran
+            atau pesanan sungguhan yang dibuat.
           </p>
 
           <Button className="mt-6 w-full" onClick={onClose}>
@@ -1643,15 +1818,21 @@ function CheckoutModal({ onClose }: { onClose: () => void }) {
           <div className="rounded-2xl border border-amber-400/20 bg-amber-400/5 p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-bold text-white">2 Nomor Meta One</p>
-                <p className="mt-1 text-xs text-slate-500">Paket eksklusif</p>
+                <p className="font-bold text-white">
+                  2 Nomor Meta One
+                </p>
+                <p className="mt-1 text-xs text-slate-500">
+                  Paket eksklusif
+                </p>
               </div>
               <Crown className="text-amber-400" size={26} />
             </div>
 
             <div className="mt-4 border-t border-amber-400/10 pt-4">
               <div className="flex justify-between text-sm">
-                <span className="text-slate-400">Total pembayaran</span>
+                <span className="text-slate-400">
+                  Total pembayaran
+                </span>
                 <span className="font-black text-amber-400">
                   {money(META_PRICE)}
                 </span>
@@ -1664,18 +1845,18 @@ function CheckoutModal({ onClose }: { onClose: () => void }) {
               Metode Pembayaran
             </label>
 
-            {['QRIS', 'Konfirmasi WhatsApp'].map((v) => (
+            {["QRIS", "Konfirmasi WhatsApp"].map((v) => (
               <button
                 key={v}
                 onClick={() => setMethod(v)}
                 className={`flex w-full items-center justify-between rounded-xl border p-4 text-sm ${
                   method === v
-                    ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400'
-                    : 'border-slate-700 text-slate-400'
+                    ? "border-emerald-500 bg-emerald-500/10 text-emerald-400"
+                    : "border-slate-700 text-slate-400"
                 }`}
               >
                 <span className="flex items-center gap-3">
-                  {v === 'QRIS' ? (
+                  {v === "QRIS" ? (
                     <QrCode size={19} />
                   ) : (
                     <MessageCircle size={19} />
@@ -1697,11 +1878,16 @@ function CheckoutModal({ onClose }: { onClose: () => void }) {
             />
           </div>
 
-          {method === 'QRIS' && (
+          {method === "QRIS" && (
             <div className="mt-5 rounded-xl border border-slate-700 bg-slate-950 p-5 text-center">
-              <QrCode className="mx-auto text-emerald-400" size={30} />
+              <QrCode
+                className="mx-auto text-emerald-400"
+                size={30}
+              />
 
-              <p className="mt-3 text-sm font-bold text-white">QRIS Demo</p>
+              <p className="mt-3 text-sm font-bold text-white">
+                QRIS Demo
+              </p>
 
               <div className="mx-auto mt-3 w-fit rounded-xl bg-white p-3">
                 <FakeQR />
@@ -1713,19 +1899,21 @@ function CheckoutModal({ onClose }: { onClose: () => void }) {
             </div>
           )}
 
-          {method === 'Konfirmasi WhatsApp' && (
+          {method === "Konfirmasi WhatsApp" && (
             <div className="mt-5 rounded-xl bg-slate-800 p-4 text-xs leading-6 text-slate-400">
-              Permintaan konfirmasi hanya dicatat dalam simulasi. Tidak ada
-              pesan WhatsApp yang dikirim otomatis.
+              Permintaan konfirmasi hanya dicatat dalam simulasi.
+              Tidak ada pesan WhatsApp yang dikirim otomatis.
             </div>
           )}
 
           <Button
             className="mt-6 w-full"
-            disabled={contact.replace(/\D/g, '').length < 10}
+            disabled={
+              contact.replace(/\D/g, "").length < 10
+            }
             onClick={() => setPaid(true)}
           >
-            {method === 'QRIS' ? (
+            {method === "QRIS" ? (
               <>
                 <Check size={17} />
                 Simulasikan Konfirmasi Pembayaran
@@ -1750,18 +1938,21 @@ function CheckoutModal({ onClose }: { onClose: () => void }) {
 export default function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
-  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [authMode, setAuthMode] =
+    useState<"login" | "register">("login");
 
-  const [userName, setUserName] = useState('Admin HokiBlast');
-  const [page, setPage] = useState<Page>('dashboard');
+  const [userName, setUserName] = useState("Admin HokiBlast");
+  const [page, setPage] = useState<Page>("dashboard");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
 
   const [balance, setBalance] = useState(150000);
-  const [devices, setDevices] = useState<Device[]>(initialDevices);
+  const [devices, setDevices] =
+    useState<Device[]>(initialDevices);
   const [commissions, setCommissions] =
     useState<Commission[]>(initialCommissions);
-  const [withdrawals, setWithdrawals] = useState<Withdrawal[]>([]);
+  const [withdrawals, setWithdrawals] =
+    useState<Withdrawal[]>([]);
 
   const [copied, setCopied] = useState(false);
 
@@ -1770,7 +1961,7 @@ export default function App() {
     const item: Commission = {
       id: commissions.length + 1,
       amount: RATE,
-      phone: '08••••••1234',
+      phone: "08••••••1234",
       date: dateNow(),
     };
 
@@ -1780,18 +1971,21 @@ export default function App() {
 
   // TAMBAH PERANGKAT WHATSAPP
   const addDevice = (phone: string) => {
-    const clean = phone.replace(/\D/g, '');
+    const clean = phone.replace(/\D/g, "");
 
-    const masked = clean.slice(0, 4) + '••••' + clean.slice(-4);
+    const masked =
+      clean.slice(0, 4) +
+      "••••" +
+      clean.slice(-4);
 
     setDevices((prev) => [
       ...prev,
       {
         id: Date.now(),
         phone: masked,
-        name: 'WhatsApp Personal',
+        name: "WhatsApp Personal",
         date: dateNow(),
-        status: 'Aktif Disewa',
+        status: "Aktif Disewa",
       },
     ]);
   };
@@ -1819,7 +2013,7 @@ export default function App() {
         account: data.account,
         amount: data.amount,
         date: dateNow(),
-        status: 'Menunggu (Demo)',
+        status: "Menunggu (Demo)",
       },
       ...prev,
     ]);
@@ -1827,14 +2021,15 @@ export default function App() {
 
   // SALIN LINK REFERRAL
   const copyReferral = async () => {
-    const link = 'https://hokiblast.example/ref/USER2026';
+    const link =
+      "https://hokiblast.example/ref/USER2026";
 
     try {
       await navigator.clipboard.writeText(link);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      window.prompt('Salin link referral:', link);
+      window.prompt("Salin link referral:", link);
     }
   };
 
@@ -1842,7 +2037,7 @@ export default function App() {
   const logout = () => {
     setAuthenticated(false);
     setShowAuth(false);
-    setPage('dashboard');
+    setPage("dashboard");
     setMobileOpen(false);
   };
 
@@ -1858,17 +2053,17 @@ export default function App() {
               setUserName(name);
               setAuthenticated(true);
               setShowAuth(false);
-              setPage('dashboard');
+              setPage("dashboard");
             }}
           />
         ) : (
           <Landing
             onLogin={() => {
-              setAuthMode('login');
+              setAuthMode("login");
               setShowAuth(true);
             }}
             onRegister={() => {
-              setAuthMode('register');
+              setAuthMode("register");
               setShowAuth(true);
             }}
             onBuy={() => setCheckoutOpen(true)}
@@ -1876,7 +2071,9 @@ export default function App() {
         )}
 
         {checkoutOpen && (
-          <CheckoutModal onClose={() => setCheckoutOpen(false)} />
+          <CheckoutModal
+            onClose={() => setCheckoutOpen(false)}
+          />
         )}
       </>
     );
@@ -1907,7 +2104,11 @@ export default function App() {
 
               <div>
                 <h1 className="text-sm font-bold md:text-base">
-                  {navItems.find((item) => item.id === page)?.label}
+                  {
+                    navItems.find(
+                      (item) => item.id === page
+                    )?.label
+                  }
                 </h1>
 
                 <p className="hidden text-[10px] text-slate-500 sm:block">
@@ -1918,7 +2119,9 @@ export default function App() {
 
             <div className="flex items-center gap-3">
               <div className="hidden text-right sm:block">
-                <p className="text-xs text-slate-500">Total Penghasilan</p>
+                <p className="text-xs text-slate-500">
+                  Total Penghasilan
+                </p>
                 <p className="text-sm font-black text-emerald-400">
                   {money(balance)}
                 </p>
@@ -1939,7 +2142,9 @@ export default function App() {
           <main className="mx-auto max-w-[1500px] space-y-6 p-5 md:p-8">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <h2 className="text-lg font-bold">Halo, {userName} 👋</h2>
+                <h2 className="text-lg font-bold">
+                  Halo, {userName} 👋
+                </h2>
 
                 <p className="mt-1 text-xs text-slate-500">
                   Kelola aktivitas dan penghasilan Anda hari ini.
@@ -1952,7 +2157,7 @@ export default function App() {
             </div>
 
             {/* DASHBOARD */}
-            {page === 'dashboard' && (
+            {page === "dashboard" && (
               <DashboardHome
                 balance={balance}
                 devices={devices}
@@ -1963,12 +2168,15 @@ export default function App() {
             )}
 
             {/* WHATSAPP */}
-            {page === 'whatsapp' && (
-              <WhatsAppPage devices={devices} onAddDevice={addDevice} />
+            {page === "whatsapp" && (
+              <WhatsAppPage
+                devices={devices}
+                onAddDevice={addDevice}
+              />
             )}
 
             {/* WITHDRAW */}
-            {page === 'withdraw' && (
+            {page === "withdraw" && (
               <WithdrawPage
                 balance={balance}
                 onWithdraw={withdraw}
@@ -1977,7 +2185,7 @@ export default function App() {
             )}
 
             {/* HISTORY & REFERRAL */}
-            {page === 'history' && (
+            {page === "history" && (
               <HistoryPage
                 commissions={commissions}
                 onCopy={copyReferral}
@@ -1986,20 +2194,27 @@ export default function App() {
             )}
 
             {/* META ONE STORE */}
-            {page === 'metaone' && (
-              <MetaOnePage onBuy={() => setCheckoutOpen(true)} />
+            {page === "metaone" && (
+              <MetaOnePage
+                onBuy={() => setCheckoutOpen(true)}
+              />
             )}
 
             <footer className="border-t border-slate-800 pt-6 text-center text-[10px] text-slate-600">
-              © 2026 HokiBlast · Frontend Prototype · Semua transaksi merupakan
-              simulasi.
+              © 2026 HokiBlast · Frontend Prototype · Semua transaksi
+              merupakan simulasi.
             </footer>
           </main>
         </div>
       </div>
 
       {/* CHECKOUT MODAL */}
-      {checkoutOpen && <CheckoutModal onClose={() => setCheckoutOpen(false)} />}
+      {checkoutOpen && (
+        <CheckoutModal
+          onClose={() => setCheckoutOpen(false)}
+        />
+      )}
     </>
   );
 }
+export default App;
