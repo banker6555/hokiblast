@@ -1,10 +1,18 @@
 {
   “compilerOptions”: {
+    “target”: “es5”,
+    “lib”: [“dom”, “dom.iterable”, “esnext”],
+    “allowJs”: true,
+    “skipLibCheck”: true,
     “esModuleInterop”: true,
     “allowSyntheticDefaultImports”: true,
-    “jsx”: “react-jsx”,
-    “lib”: [“DOM”, “ES2022”],
+    “strict”: false,
+    “module”: “esnext”,
     “moduleResolution”: “node”,
-    “target”: “ES2022”
-  }
+    “resolveJsonModule”: true,
+    “isolatedModules”: true,
+    “noEmit”: true,
+    “jsx”: “react-jsx”
+  },
+  “include”: [“src”]
 }
